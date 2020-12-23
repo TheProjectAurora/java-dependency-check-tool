@@ -9,8 +9,8 @@ set -e
 # 	--entrypoint /source/OWASP_dependency-check.sh \
 # 	-e GITHUB_USERNAME=${GITHUB_USERNAME} \
 # 	-e GITHUB_TOKEN=${GITHUB_TOKEN} \
-# 	-e PARAMETERS='--out /source --format ALL --failOnCVSS 0-10 --junitFailOnCVSS 0-10 --scan /app/* --scan /app/dependency/*' \
-# 	PRODUCTION_DOCKER_IMAGE
+# 	-e PARAMETERS='--out /source --format ALL --failOnCVSS 0-10 --junitFailOnCVSS 0-10 --scan /' \
+# 	<PRODUCTION_DOCKER_IMAGE>
 
 GITHUB_USERNAME=${GITHUB_USERNAME}
 GITHUB_TOKEN=${GITHUB_TOKEN}
