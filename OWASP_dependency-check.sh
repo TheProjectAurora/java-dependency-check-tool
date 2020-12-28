@@ -16,7 +16,7 @@ GITHUB_USERNAME=${GITHUB_USERNAME}
 GITHUB_TOKEN=${GITHUB_TOKEN}
 PARAMETERS=${PARAMETERS}
 
-PACKAGES="curl wget unzip"
+PACKAGES="curl wget unzip jq"
 if [ -e /etc/alpine-release ];
 then
     apk --no-cache add ${PACKAGES}
@@ -28,19 +28,18 @@ fi
 LOOP_ROUNDS=11
 while [ ${LOOP_ROUNDS} -gt 0 ]
 do
-    CURL_CONTENT=$(curl --silent -i -u ${GITHUB_USERNAME}:${GITHUB_TOKEN} https://github.com/jeremylong/DependencyCheck/blob/main/RELEASE_NOTES.md)
-    export VERSION=$(echo "${CURL_CONTENT}" | grep 'https://github.com/jeremylong/DependencyCheck/releases/tag/v' | head -1 | grep -o '>Version .*<' | awk -F'<' '{print $1}' | awk -F' ' '{print $2}');
-    echo VERSION_IS:${VERSION}
-    if [ "${VERSION}" != "" ]
+    CURL_CONTENT=$(curl --silent -u ${GITHUB_USERNAME}:${GITHUB_TOKEN} "https://api.github.com/repos/jeremylong/DependencyCheck/releases/latest")
+    export HTML_URL=$(echo "${CURL_CONTENT}" | jq '.assets[] | select(.content_type | contains("application/zip"))' | jq -r '.browser_download_url' | grep -v ant );
+    echo HTML_URL:${HTML_URL}
+    if [ "${HTML_URL}" != "" ]
     then
         break;
     fi
     LOOP_ROUNDS=$((${LOOP_ROUNDS} -1 ))
     sleep 6m
 done
-echo "https://github.com/jeremylong/DependencyCheck/releases/download/v${VERSION}/dependency-check-${VERSION}-release.zip"
-wget -q --header=PRIVATE-TOKEN:${GITHUB_TOKEN} https://github.com/jeremylong/DependencyCheck/releases/download/v${VERSION}/dependency-check-${VERSION}-release.zip
-unzip dependency-check-${VERSION}-release.zip
+wget -q --header=PRIVATE-TOKEN:${GITHUB_TOKEN} ${HTML_URL}
+unzip dependency-check-*-release.zip
 chmod +x ./dependency-check/bin/dependency-check.sh
 #./dependency-check/bin/dependency-check.sh --out /source --failOnCVSS 10 --scan /app
 ./dependency-check/bin/dependency-check.sh ${PARAMETERS}
