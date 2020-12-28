@@ -9,7 +9,7 @@ set -e
 # 	--entrypoint /source/OWASP_dependency-check.sh \
 # 	-e GITHUB_USERNAME=${GITHUB_USERNAME} \
 # 	-e GITHUB_TOKEN=${GITHUB_TOKEN} \
-# 	-e PARAMETERS='--out /source --format ALL --failOnCVSS 10 --scan /app' \
+# 	-e PARAMETERS='--out /source --format ALL --failOnCVSS 11 --scan /app' \
 # 	<PRODUCTION_DOCKER_IMAGE>
 
 #NOTE: 
@@ -48,5 +48,5 @@ done
 wget -q --header=PRIVATE-TOKEN:${GITHUB_TOKEN} ${HTML_URL}
 unzip dependency-check-*-release.zip
 chmod +x ./dependency-check/bin/dependency-check.sh
-#./dependency-check/bin/dependency-check.sh --out /source --failOnCVSS 10 --scan /app
+#./dependency-check/bin/dependency-check.sh --out /source --failOnCVSS 11 --scan /app
 ./dependency-check/bin/dependency-check.sh ${PARAMETERS}

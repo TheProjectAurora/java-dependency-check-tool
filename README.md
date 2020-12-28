@@ -25,6 +25,6 @@ docker run --rm -u root \
 	--entrypoint /source/OWASP_dependency-check.sh \
 	-e GITHUB_USERNAME=${GITHUB_USERNAME} \
 	-e GITHUB_TOKEN=${GITHUB_TOKEN} \
-	-e PARAMETERS='--out /source --format ALL --failOnCVSS 10 --scan /app' \
+	-e PARAMETERS='--out /source --format ALL --failOnCVSS 11 --scan /app' \
 	<PRODUCTION_DOCKER_IMAGE>
 ```
