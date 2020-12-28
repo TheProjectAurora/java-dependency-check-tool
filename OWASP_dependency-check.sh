@@ -12,6 +12,13 @@ set -e
 # 	-e PARAMETERS='--out /source --format ALL --failOnCVSS 10 --scan /app' \
 # 	<PRODUCTION_DOCKER_IMAGE>
 
+#NOTE: 
+#    --failOnCVSS <score>        Specifies if the build should be failed if
+#                                a CVSS score above a specified level is
+#                                identified. The default is 11; since the
+#                                CVSS scores are 0-10, by default the build
+#                                will never fail.
+
 GITHUB_USERNAME=${GITHUB_USERNAME}
 GITHUB_TOKEN=${GITHUB_TOKEN}
 PARAMETERS=${PARAMETERS}
