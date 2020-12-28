@@ -9,7 +9,7 @@ set -e
 # 	--entrypoint /source/OWASP_dependency-check.sh \
 # 	-e GITHUB_USERNAME=${GITHUB_USERNAME} \
 # 	-e GITHUB_TOKEN=${GITHUB_TOKEN} \
-# 	-e PARAMETERS='--out /source --format ALL --failOnCVSS 0-10 --junitFailOnCVSS 0-10 --scan /' \
+# 	-e PARAMETERS='--out /source --format ALL --failOnCVSS 10 --scan /app' \
 # 	<PRODUCTION_DOCKER_IMAGE>
 
 GITHUB_USERNAME=${GITHUB_USERNAME}
@@ -29,7 +29,7 @@ LOOP_ROUNDS=11
 while [ ${LOOP_ROUNDS} -gt 0 ]
 do
     CURL_CONTENT=$(curl --silent -i -u ${GITHUB_USERNAME}:${GITHUB_TOKEN} https://github.com/jeremylong/DependencyCheck/blob/main/RELEASE_NOTES.md)
-    export VERSION=$(echo "${CURL_CONTENT}" | grep "title=\"version .*" | grep -o '>version .*<' | tr -d '<' | awk -F' ' '{print $2}');
+    export VERSION=$(echo "${CURL_CONTENT}" | grep 'https://github.com/jeremylong/DependencyCheck/releases/tag/v' | head -1 | grep -o '>Version .*<' | awk -F'<' '{print $1}' | awk -F' ' '{print $2}');
     echo VERSION_IS:${VERSION}
     if [ "${VERSION}" != "" ]
     then
@@ -42,5 +42,5 @@ echo "https://github.com/jeremylong/DependencyCheck/releases/download/v${VERSION
 wget -q --header=PRIVATE-TOKEN:${GITHUB_TOKEN} https://github.com/jeremylong/DependencyCheck/releases/download/v${VERSION}/dependency-check-${VERSION}-release.zip
 unzip dependency-check-${VERSION}-release.zip
 chmod +x ./dependency-check/bin/dependency-check.sh
-#./dependency-check/bin/dependency-check.sh --out /source --failOnCVSS 0-10 --scan /app/* --scan /app/dependency/*
+#./dependency-check/bin/dependency-check.sh --out /source --failOnCVSS 10 --scan /app
 ./dependency-check/bin/dependency-check.sh ${PARAMETERS}
