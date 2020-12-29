@@ -18,6 +18,7 @@ set -e
 #                                identified. The default is 11; since the
 #                                CVSS scores are 0-10, by default the build
 #                                will never fail.
+# CVSS score Ratings: https://nvd.nist.gov/vuln-metrics/cvss
 
 GITHUB_USERNAME=${GITHUB_USERNAME}
 GITHUB_TOKEN=${GITHUB_TOKEN}
