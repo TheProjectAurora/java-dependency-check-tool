@@ -15,6 +15,7 @@ CVSS score Ratings: https://nvd.nist.gov/vuln-metrics/cvss
 
 ## INFO:
 Implementation based to: <BR>
+https://owasp.org/www-project-dependency-check/ <BR>
 https://github.com/jeremylong/DependencyCheck <BR>
 https://jeremylong.github.io/DependencyCheck/dependency-check-cli/arguments.html
 
