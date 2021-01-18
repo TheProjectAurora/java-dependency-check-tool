@@ -45,8 +45,7 @@ docker run --rm -u root -v $(pwd):/source --entrypoint /source/OWASP_dependency-
 ## https://www.gocd.org/
 Server:
 ```
-docker run --rm -u root -v $(pwd):/source --entrypoint /source/OWASP_dependency-check.sh -e GITHUB_USERNAME=${GITHUB_USERNAME} -e GITH
-UB_TOKEN=${GITHUB_TOKEN} -e JAVA_HOME=/gocd-jre/ -e PARAMETERS='--out /source --format ALL --failOnCVSS 11 --scan /' gocd/gocd-server:v21.1.0
+docker run --rm -u root -v $(pwd):/source --entrypoint /source/OWASP_dependency-check.sh -e GITHUB_USERNAME=${GITHUB_USERNAME} -e GITHUB_TOKEN=${GITHUB_TOKEN} -e JAVA_HOME=/gocd-jre/ -e PARAMETERS='--out /source --format ALL --failOnCVSS 11 --scan /' gocd/gocd-server:v21.1.0
 ```
 Agent:
 ```
