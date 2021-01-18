@@ -1,4 +1,4 @@
-# Describtion:
+# Description:
 - Install OWASP dependency check tool to inside of PRODUCTION_DOCKER_IMAGE container by using volume mount and OWASP_dependency-check.sh script
 - Execute dependency-check.sh with PARAMETERS against folder that is define in --scan parameter
 - REPORT OUTPUT file formats: XML, HTML, CSV, JSON, JUNIT
