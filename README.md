@@ -32,7 +32,7 @@ docker run --rm -u root \
 	<PRODUCTION_DOCKER_IMAGE>
 ```
 
-# Inresting results:
+# Interesting results:
 ## https://www.jenkins.io/
 Server:
 ```
